@@ -123,6 +123,34 @@ def interactive_env_creation():
         baseOrientation=start_orientation,
     )
 
+    box_2_size = [0.25, 0.5, 1.0]  # half extents in x, y, z
+
+    # Create a visual shape for the box - 2
+    visual_shape_2_id = p.createVisualShape(
+        shapeType=p.GEOM_BOX,
+        halfExtents=box_2_size,
+        rgbaColor=[0.0, 0.0, 1.0, 1],  # blue color
+    )
+
+    # Create a collision shape for the box - 2
+    collision_shape_2_id = p.createCollisionShape(
+        shapeType=p.GEOM_BOX,
+        halfExtents=box_2_size,
+    )
+
+    # Define the position and orientation of the box - 1
+    start_2_pos = [0.5, 0, 0]
+    start_2_orientation = p.getQuaternionFromEuler([0, 0, 0])
+
+    # Create a multi-body with the visual and collision shape
+    box_2_id = p.createMultiBody(
+        baseMass=0,  # mass of the box
+        baseCollisionShapeIndex=collision_shape_2_id,
+        baseVisualShapeIndex=visual_shape_2_id,
+        basePosition=start_2_pos,
+        baseOrientation=start_2_orientation,
+    )
+
 # robot joint index finder - function 
 def robot_joint_idx_finder(num_of_joints):
 
