@@ -133,7 +133,7 @@ def main():
 
     initial_arm_position = [0.5, 0.0, 1.5]
 
-    initial_arm_ori_roll = 0
+    initial_arm_ori_roll = math.pi/2
     initial_arm_ori_pitch = 0
     initial_arm_ori_yaw = 0
 
@@ -143,7 +143,7 @@ def main():
 
     desired_arm_ori_roll = 0
     desired_arm_ori_pitch = 0
-    desired_arm_ori_yaw = 0
+    desired_arm_ori_yaw = -math.pi/2
 
     desired_arm_orientation = p.getQuaternionFromEuler([desired_arm_ori_roll, desired_arm_ori_pitch, desired_arm_ori_yaw])
 
@@ -183,6 +183,8 @@ def main():
         demo_mode = 1
         mode_select = -1
 
+        desired_arm_pose = [desired_arm_position, desired_arm_orientation]
+
         # static target tracking
         if demo_mode == 1:
             if gt_global >= 10:
@@ -213,6 +215,12 @@ def main():
                 desired_arm_position[1] = -0.15
                 desired_arm_position[2] = 1.45
 
+                desired_arm_ori_roll = 0
+                desired_arm_ori_pitch = -math.pi/2
+                desired_arm_ori_yaw = 0
+
+                desired_arm_orientation = p.getQuaternionFromEuler([desired_arm_ori_roll, desired_arm_ori_pitch, desired_arm_ori_yaw])
+                
                 print(f"mode --> {mode_select}.3")
 
             if gt_global >= 30:
@@ -220,7 +228,13 @@ def main():
 
                 desired_arm_position[0] = 0.35
                 desired_arm_position[1] = 0.15
-                desired_arm_position[2] = 1.25           
+                desired_arm_position[2] = 1.25        
+
+                desired_arm_ori_roll = math.pi/2
+                desired_arm_ori_pitch = -math.pi/2
+                desired_arm_ori_yaw = 0
+
+                desired_arm_orientation = p.getQuaternionFromEuler([desired_arm_ori_roll, desired_arm_ori_pitch, desired_arm_ori_yaw])   
 
                 print(f"mode --> {mode_select}.4")
 
@@ -231,6 +245,12 @@ def main():
                 desired_arm_position[1] = 0.35
                 desired_arm_position[2] = 1.5
 
+                desired_arm_ori_roll = math.pi/2
+                desired_arm_ori_pitch = -math.pi/2
+                desired_arm_ori_yaw = math.pi/2
+
+                desired_arm_orientation = p.getQuaternionFromEuler([desired_arm_ori_roll, desired_arm_ori_pitch, desired_arm_ori_yaw]) 
+
                 print(f"mode --> {mode_select}.5")
 
             if gt_global >= 40:
@@ -240,6 +260,12 @@ def main():
                 desired_arm_position[1] = -0.25
                 desired_arm_position[2] = 1.35
 
+                desired_arm_ori_roll = -math.pi/2
+                desired_arm_ori_pitch = 0
+                desired_arm_ori_yaw = math.pi/2
+
+                desired_arm_orientation = p.getQuaternionFromEuler([desired_arm_ori_roll, desired_arm_ori_pitch, desired_arm_ori_yaw]) 
+
                 print(f"mode --> {mode_select}.6")
 
             if gt_global >= 45:
@@ -248,6 +274,12 @@ def main():
                 desired_arm_position[0] = 0.5
                 desired_arm_position[1] = -0.25
                 desired_arm_position[2] = 1.5
+
+                desired_arm_ori_roll = 0
+                desired_arm_ori_pitch = 0
+                desired_arm_ori_yaw = 0
+
+                desired_arm_orientation = p.getQuaternionFromEuler([desired_arm_ori_roll, desired_arm_ori_pitch, desired_arm_ori_yaw]) 
 
                 print(f"mode --> {mode_select}.7")
 
@@ -293,7 +325,7 @@ def main():
         current_end_eff_pos = current_link_value_vec[len(joint_lower_limit_vec) - 1][0]
         current_end_eff_ori = current_link_value_vec[len(joint_lower_limit_vec) - 1][1]
 
-        # print(current_end_eff_pos, current_end_eff_ori)
+        print(f"current_end_eff_pos = {current_end_eff_pos}", f"\ncurrent_end_eff_ori = {current_end_eff_ori}\n")
 
         p.stepSimulation()
         t.sleep(0.1)
